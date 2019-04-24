@@ -1,0 +1,18 @@
+ls -l | grep list
+*No output
+
+--------------------
+wc -l /etc/passwd >> 02.report.pipe.txt
+43 /etc/passwd
+
+--------------------
+free -m | grep Mem | awk '{ print $2 }' >> 02.report.pipe.txt 
+7848
+
+--------------------
+cat /proc/cpuinfo | grep  processor | wc -l >>02.report.pipe.txt
+12
+
+--------------------
+~/Pictures$ find *.jpg | wc -l >> ~/Desktop/os2019/02.report.pipe.txt
+1
