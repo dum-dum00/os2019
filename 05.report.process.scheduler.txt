@@ -1,0 +1,24 @@
+grep systemd /proc/sched_debug >> 05.report.process.scheduler.txt
+
+ S systemd-logind  1230         9.702775      1195   120         0.000000       130.399764         0.000000 0 0 /autogroup-64
+ S        systemd  1885        12.422283       106   120         0.000000       109.014559         0.000000 0 0 /autogroup-88
+ Ssystemd-resolve   941        15.003523      1361   120         0.000000       300.182846         0.000000 0 0 /autogroup-43
+ S        systemd     1       241.684999     37348   120         0.000000      3187.291211         0.000000 0 0 /autogroup-2
+ Ssystemd-journal   497        26.977112      2134   119         0.000000      1305.566353         0.000000 0 0 /autogroup-3
+ S        systemd  2579        16.419700       118   120         0.000000        78.165022         0.000000 0 0 /autogroup-108
+ S  systemd-udevd   551      1659.662044      2730   120         0.000000      1432.323202         0.000000 0 0 /autogroup-20
+ Ssystemd-timesyn   942         5.841020        51   120         0.000000        27.365158         0.000000 0 0 /autogroup-44
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+grep switch /proc/2579/sched >> 05.report.process.scheduler.txt
+
+nr_switches                                  :                  119
+nr_voluntary_switches                        :                  111
+nr_involuntary_switches                      :                    8
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+grep switch /proc/1/sched >> 05.report.process.scheduler.txt
+
+nr_switches                                  :                62837
+nr_voluntary_switches                        :                62538
+nr_involuntary_switches                      :                  299
