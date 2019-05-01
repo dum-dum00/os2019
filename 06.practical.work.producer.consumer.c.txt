@@ -1,0 +1,68 @@
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+
+# define buffer_size 10
+
+typedef struct {
+  char *name; // package name
+  char *version; // version of package
+  char *author; // package creator
+} pkg;
+
+pkg buffer[buffer_size]; 
+int first = 0;
+int last = 0;
+
+// producing
+void produce (pkg *i) {
+  while ((first + 1) % buffer_size == last) {
+    printf("no free queue");
+  }
+
+  memcpy(&buffer[first], i, sizeof(pkg));
+  first = (first + 1) % buffer_size;
+  printf("Log of send package: \nFirst: %d\nLast: %d\n",first,last);
+}
+
+// receiving
+pkg *receive (void) {
+  pkg *i = (pkg *) malloc(sizeof(pkg));
+  while (first == last) {
+    ; // wait for package put to queue
+  }
+
+  memcpy(i, &buffer[last], sizeof(pkg));
+  last = (last + 1) % buffer_size;
+  printf("Log of recieve package: \nFirst: %d\nLast: %d\n",first,last);
+  return i;
+}
+
+// send to user
+pkg pack (char *name, char *version, char *author) {
+  pkg box;
+  box.name = name;
+  box.version = version;
+  box.author = author;
+  return box;
+}
+
+// remove package after unpack
+void garbage (pkg *box) {
+  free(box);
+}
+
+int main(){
+  pkg sbox1 = pack("A","1.0","Toval");
+  produce(&sbox1);
+  pkg sbox2 = pack("B","1.1","Toval");
+  produce(&sbox2);
+  pkg sbox3 = pack("C","2.1","Toval");
+  produce(&sbox3);
+
+  pkg *rrbox = receive();
+  pkg rbox = *rrbox;
+  printf("\nPackage received \nPackage: %s\nVersion: %s\nAuthor: %s\n",rbox.name,rbox.version,rbox.author);
+  garbage(rrbox);  
+  return 0;
+}
