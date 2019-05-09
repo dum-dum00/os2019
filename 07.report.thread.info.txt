@@ -1,0 +1,9 @@
+ps -e | grep firefox >>07.report.thread.info.txt
+
+ 3370 tty2     00:02:20 firefox
+-------------------------------------------------------------------
+ps -o nlwp 3370 >> 07.report.thread.info.txt
+
+NLWP
+  73
+
